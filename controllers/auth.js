@@ -18,24 +18,24 @@ exports.signup = function (req, res, next) {
   console.log(registeringUser);
   if(typeof registeringUser.phone == 'undefined' || registeringUser.phone == ''){
     console.log("f");
-    res.send(new Response.respondWithData("Phone number missing"));
+    res.send(new Response.respondWithData(400,"Phone number missing"));
     return next();
   }
 
   User.findOne({ 'phone': registeringUser.phone }, function(err, existingUser){
      if (err) {
-       res.send(new Response.respondWithData("Error looking up user"));
+       res.send(new Response.respondWithData(400,"Error looking up user"));
        return next();
      } else if(existingUser){
-       res.send(new Response.respondWithData("User exists with this phone number"));
+       res.send(new Response.respondWithData(400,"User already exists with this mobile number"));
        return next();
      } else {
         User.findOne({'email': registeringUser.email}, function(err, exists){
           if (err) {
-            res.send(new Response.respondWithData("Error looking up user"));
+            res.send(new Response.respondWithData(400,"Error looking up user"));
             return next();
           } else if(exists){
-            res.send(new Response.respondWithData("User exists with this email address"));
+            res.send(new Response.respondWithData(400,"User exists with this email address"));
             return next();
           } else {
             User.create(registeringUser, function (err, newUser) {
@@ -45,7 +45,7 @@ exports.signup = function (req, res, next) {
                 console.log("creating");
                 newUser.createSession(function (err, loggedInUser) {
                   if (err) {
-                    res.send(new Response.respondWithData("Error logging in the new user: " + err.message));
+                    res.send(new Response.respondWithData(400,"Error logging in the new user: " + err.message));
                     return next();
                   } else {
                     console.log("added user");

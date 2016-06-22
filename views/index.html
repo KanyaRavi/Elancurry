@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Elancurry</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div style="margin:100px;">
+    <p>If you have forgotten your password please reset here<p>
+    <div class="jumbotron"  style="padding:40px;height:400px;width:450px">
+      <h1><p>If you have forgotten your password please reset here<p></h1>
+      <input class="form-control input-lg" placeholder="New Password"  type="password" id ="password"><br>
+      <input class="form-control input-lg" placeholder="Confirm Password"  type="password"><br>
+      <p><a class="btn btn-primary btn-lg"  role="button"  id="button" onClick="push()" >Reset</a></p>
+    </div>
+  </div>
+  <label>OUTPUT</label>
+  <div id='output'>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+<script type="text/javascript">
+ function push(){
+    var password = $('#password').val();
+    console.log(password);
+      $.ajax({
+        type: "POST",
+        url: "http://elancuryy.herokuapp.com/api/changepassword",
+        data: JSON.stringify({"password": password}),
+        cache: false,
+        headers: {'Content-Type': 'application/json'},
+        success: function(data){
+           $("#output").text("Push sent Successfully")
+        },
+        error: function(data){
+          $("#output").text(data);
+        }
+      });
+  }
+</script>
+</html>

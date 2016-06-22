@@ -2,8 +2,8 @@ var
   fs = require('fs'),
   mongoose = require('mongoose'),
   models_path = __dirname + '/models',
-  mongoURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017/elancurry";
-  //mongoURI = "mongodb://heroku_3vxj3ph9:kjlv7uqomp67l7j3hrgp586n2i@ds015774.mlab.com:15774/heroku_3vxj3ph9" || "mongodb://localhost:27017/elancurry"; //process.env.MONGODB_URI ||
+  //mongoURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017/elancurry";
+  mongoURI = "mongodb://heroku_3vxj3ph9:kjlv7uqomp67l7j3hrgp586n2i@ds015774.mlab.com:15774/heroku_3vxj3ph9" || "mongodb://localhost:27017/elancurry"; //process.env.MONGODB_URI ||
 
 exports.connect = function(callback) {
   var db = mongoose.connect(mongoURI);

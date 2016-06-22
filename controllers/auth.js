@@ -147,21 +147,21 @@ exports.logout = function(req, res, next) {
  console.log(email)
  User.findOne({'email':email}, function(err, user){
    if(err){
-     res.send(new Response.respondWithData('Error looking up for email'));
+     res.send(new Response.respondWithData("Failed",'Error looking up for email'));
      return next();
    } else if(user) {
      mail.sendMail(user.email, 0, user.name, user._id, function(result){
          if(result == 1){
-           res.send(new Response.respondWithData('Error sending mail'));
+           res.send(new Response.respondWithData("Failed",'Error sending mail'));
            return next();
          } else {
-         res.send(new Response.respondWithData('Mail Sent'));
+         res.send(new Response.respondWithData("Success",'Mail Sent'));
          return next();
        }
        });
    } else {
      console.log("no user");
-      res.send(new Response.respondWithData("User not found"));
+      res.send(new Response.respondWithData("Failed","User not found"));
      return next();
    }
  })
@@ -182,7 +182,7 @@ exports.logout = function(req, res, next) {
     }
    else {
      console.log("no user");
-     res.send(new Response.respondWithData("Sorry ,You are not an authorised user"));
+     res.send(new Response.respondWithData("Failed","Sorry ,You are not an authorised user"));
      return next();
    }
  });

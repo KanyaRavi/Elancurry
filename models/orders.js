@@ -28,7 +28,7 @@ itemSchema.set('toJSON', { virtuals: true });
 
 itemSchema.methods.toJSON = function () {
   return {
-    item_id: this.item_id,
+    _id: this.id,
     item_name: this.item_name,
     item_price: this.item_price,
     item_qty: this.item_qty,
@@ -62,7 +62,7 @@ itemSchema.pre('save', function (next) {
   next(err);
 });
 
-/*User Schema*/
+/*Orders Schema*/
 
 var orderSchema = new mongoose.Schema({
  user_id:{
@@ -83,11 +83,10 @@ var orderSchema = new mongoose.Schema({
    type: String
  },
  invoice: {
-   type: Number
+   type: String
  },
  paymentType: {
-   type: String,
-   required: true
+   type: String
  },
  payment_mihpayid:{
    type: String
@@ -130,6 +129,7 @@ orderSchema.methods.update = function (updates, options, cb) {
 };
 
 orderSchema.methods.createSession = function (cb) {
+  //this.invoice = common.rand();
   this.save(cb);
 };
 
@@ -145,7 +145,8 @@ orderSchema.statics.create = function (orderObject, callback) {
   //newUser.save(function (error, createdUser) {
   //  callback(error, createdUser);
   //});
-  new this(orderObject).save(callback); //8-)
+  new this(orderObject).save(callback);
+  this.invoice = common.rand(); //8-)
 };
 
 

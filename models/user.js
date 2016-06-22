@@ -92,6 +92,7 @@ userSchema.methods.update = function (updates, options, cb) {
 };
 
 userSchema.methods.createSession = function (cb) {
+  this.lastLogin = new Date();
   this.accessToken = common.rand();
   this.save(cb);
 };

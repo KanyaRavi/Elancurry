@@ -1,5 +1,6 @@
 var authController = require('./controllers/auth.js');
 var productController = require('./controllers/product.js');
+var orderController = require('./controllers/order.js');
 var path = require('path');
 
 module.exports = function (app){
@@ -11,10 +12,15 @@ module.exports = function (app){
   app.post('/api/user/signup',authController.signup);
   app.post('/api/user/login',authController.login);
   app.del('/api/user/logout',needsAuth,authController.logout);
+  app.get('/api/user/forgotpassword/:email',authController.forgotPassword);
+  app.get('/api/user/sendfile/:id',authController.sendPasswordFile);
 
   //Product
   app.post('/api/product/create',productController.createProduct);
   app.get('/api/product/list',productController.getProduct);
+
+  //Orders
+  app.post('/api/orders/purchase',orderController.orderItems);
 }
 
 function needsAuth(req, res, next) {

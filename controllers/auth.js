@@ -167,14 +167,13 @@ exports.logout = function(req, res, next) {
  })
 
  }
-
  //sending the password file
  exports.sendPasswordFile = function(req, res, next) {
    debugger;
   var id = req.params.id;
-  var _password = req.body._password;
+  var password = req.body.password;
    console.log("Got id");
-   var link = "http:///api/sendfile"+id;
+   var link = "http://elancuryy.herokuapp.com/api/sendfile"+id;
    console.log("got link");
   User.findById(id,function(err,user){
     if(user != null && user != "" ){
